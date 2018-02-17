@@ -55,7 +55,7 @@
 				</div>
 				<ul class="submenu">
 					<li><a href="#">Anzahl bereits eingegebener Noten: <?php 
-						$mysqli = new Verbindundung(); // Eine neue Datenbankverbindung aufbauen
+						$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 						if ($mysqli->getVerbindung()->connect_error) {
 							$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
 						} 
@@ -68,7 +68,7 @@
 					?>
 					</a></li>
 					<li><a href="#">Bereits angemeldete Lehrer: <?php 
-						$mysqli = new Verbindundung(); // Eine neue Datenbankverbindung aufbauen
+						$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 						if ($mysqli->getVerbindung()->connect_error) {
 							$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
 						} 
@@ -81,7 +81,7 @@
 					?>
 					</a></li>
 					<li><a href="#">Tage bis Abgabe: <?php 
-						$mysqli = new Verbindundung(); // Eine neue Datenbankverbindung aufbauen
+						$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 						if ($mysqli->getVerbindung()->connect_error) {
 							$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
 						} 

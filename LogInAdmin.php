@@ -13,7 +13,7 @@ if (isset($_SESSION['admin'])) {
 		) {
 			$message['error'] = 'Es wurden nicht alle Felder ausgefüllt.';
 		} else {
-			$mysqli = new Verbindundung(); // Eine neue Datenbankverbindung aufbauen
+			$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 			if ($mysqli->getVerbindung()->connect_error) {
 				$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
 			} else {
