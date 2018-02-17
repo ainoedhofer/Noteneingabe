@@ -1,4 +1,6 @@
 <?php
+require_once './Verbindung.php';
+
 if (isset($_SESSION['admin'])) {
 	if($_SESSION['admin'] == true)
 	{

@@ -1,5 +1,6 @@
 <?php
 require_once './authAdmin.php'; //Ist der Angemeldete Bentuzer Administrator?
+require_once './Verbindung.php';
 
 $mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 if ($mysqli->getVerbindung()->connect_error) {
