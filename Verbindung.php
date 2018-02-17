@@ -33,7 +33,7 @@ class Verbindung
 	{
             try 
             {
-                $this->$conn = new PDO("mysql:host=$this->$servername; dbname=$this->$dbname;", $this->$username, $this->$password);
+                $this->$conn = new mysqli($this->$servername, $this->$username, $this->$password, $this->$dbname);
             } 
             catch (PDOException $e) {
                 echo "Fehler!: " . $e->getMessage() . "<br/>";
