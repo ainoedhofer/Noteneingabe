@@ -46,6 +46,7 @@
 							 * Diese werden dann auf der linken Seite angezeigt. Klassen für die Oberstufe 
 							 * sind Q1, Q2, EF, EFA, EFB, usw.
 							 */
+                                                        require_once './Verbindung.php';
 								if(isset($_GET['klasse']))
 								{
 									$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
@@ -65,9 +66,73 @@
 									echo "<form action=\"speichern.php\" method=\"post\">";
 									echo "<table><tr><td width=\"25%\">Vorname</td><td width=\"25%\">Nachname</td><td>Kursart</td><td>KL 1.Q</td><td>KL 2.Q</td><td>KL Ges </td><td>SOMI 1.Q</td><td>SOMI 2.Q</td><td>SOMI Ges</td><td>NOTE Ges</td><td>Fstd 1.Q</td><td>Fstd 2.Q</td><td>Fstd Ges</td><td>Ue. 1.Q</td><td>Ue. 2.Q</td><td>Ue. Ges</td></tr>";
 									$i = 0;
+                                                                        require_once './Notenoptionen.php';
+                                                                        $optionen = new Notenoptionen();
 									while($item = $result->fetch_row()) {
-										echo "<tr><td><input name=\"Data[".$i."][Vorname]\" value=\"".$item[2]."\" style=\"width:95%;\" readonly/></td><td><input name=\"Data[".$i."][Nachname]\" value=\"".$item[1]."\" style=\"width:95%;\" readonly/></td><td><input name=\"Data[".$i."][Kursart]\" value=\"".$item[8]."\" style=\"width:70%;\" readonly/></td><td><input name=\"Data[".$i."][KL1.Q]\" value=\"".$item[20]."\" /></td><td><input name=\"Data[".$i."][KL2.Q]\" value=\"".$item[21]."\" /></td><td><input name=\"Data[".$i."][KLGes]\" value=\"".$item[22]."\" /></td><td><input name=\"Data[".$i."][SOMI1.Q]\" value=\"".$item[23]."\" /></td><td><input name=\"Data[".$i."][SOMI2.Q]\" value=\"".$item[24]."\" /></td><td><input name=\"Data[".$i."][SOMIGes]\" value=\"".$item[25]."\" /></td><td><input name=\"Data[".$i."][NOTEGes]\" value=\"".$item[10]."\" /></td><td><input name=\"Data[".$i."][Fstd1.Q]\" value=\"".$item[26]."\" /></td><td><input name=\"Data[".$i."][Fstd2.Q]\" value=\"".$item[27]."\" /></td><td><input name=\"Data[".$i."][FstdGes]\" value=\"".$item[18]."\" /></td><td><input name=\"Data[".$i."][Ue.1.Q]\" value=\"".$item[28]."\" /></td><td><input name=\"Data[".$i."][Ue.2.Q]\" value=\"".$item[29]."\" /></td><td><input name=\"Data[".$i."][Ue.Ges]\" value=\"".$item[19]."\" /></td></tr>";
-										echo "<input name=\"Data[".$i."][GebDatum]\" value=\"".$item[3]."\" type=\"hidden\" />";
+										echo "<tr>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][Vorname]\" value=\"".$item[2]."\" style=\"width:95%;\" readonly/>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][Nachname]\" value=\"".$item[1]."\" style=\"width:95%;\" readonly/>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][Kursart]\" value=\"".$item[8]."\" style=\"width:70%;\" readonly/>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][KL1.Q]\" list=\"Data[".$i."][KL1.Q]\" value=\"".$item[20]."\"> "
+                                                                                                . "<datalist id=\"Data[".$i."][KL1.Q]\">".$optionen->gibOptionenOST().$optionen->gibOptionenSo().""
+                                                                                                . "</datalist>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][KL2.Q]\" list=\"Data[".$i."][KL2.Q]\" value=\"".$item[21]."\"> "
+                                                                                                . "<datalist id=\"Data[".$i."][KL2.Q]\">".$optionen->gibOptionenOST().$optionen->gibOptionenSo().""
+                                                                                                . "</datalist>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][KLGes]\" list=\"Data[".$i."][KLGes]\" value=\"".$item[22]."\">"
+                                                                                                . "<datalist id=\"Data[".$i."][KLGes]\">".$optionen->gibOptionenOST().$optionen->gibOptionenSo().""
+                                                                                                . "</datalist>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][SOMI1.Q]\" list=\"Data[".$i."][SOMI1.Q]\" value=\"".$item[23]."\">"
+                                                                                                . "<datalist id=\"Data[".$i."][SOMI1.Q]\">".$optionen->gibOptionenOST().$optionen->gibOptionenSo().""
+                                                                                                . "</datalist>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][SOMI2.Q]\" list=\"Data[".$i."][SOMI2.Q]\" value=\"".$item[24]."\">"
+                                                                                                . "<datalist id=\"Data[".$i."][SOMI2.Q]\">".$optionen->gibOptionenOST().$optionen->gibOptionenSo().""
+                                                                                                . "</datalist>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][SOMIGes]\" list=\"Data[".$i."][SOMIGes]\" value=\"".$item[25]."\">"
+                                                                                                . "<datalist id=\"Data[".$i."][SOMIGes]\">".$optionen->gibOptionenOST().$optionen->gibOptionenSo().""
+                                                                                                . "</datalist>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][NOTEGes]\" list=\"Data[".$i."][NOTEGes]\" value=\"".$item[10]."\">"
+                                                                                                . "<datalist id=\"Data[".$i."][NOTEGes]\">".$optionen->gibOptionenOST().$optionen->gibOptionenSo().""
+                                                                                                . "</datalist>"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][Fstd1.Q]\" value=\"".$item[26]."\" />"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][Fstd2.Q]\" value=\"".$item[27]."\" />"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][FstdGes]\" value=\"".$item[18]."\" />"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][Ue.1.Q]\" value=\"".$item[28]."\" />"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][Ue.2.Q]\" value=\"".$item[29]."\" />"
+                                                                                        . "</td>"
+                                                                                        . "<td>"
+                                                                                            . "<input name=\"Data[".$i."][Ue.Ges]\" value=\"".$item[19]."\" /></td>"
+                                                                                        . "</tr>";
+                                                                                echo "<input name=\"Data[".$i."][GebDatum]\" value=\"".$item[3]."\" type=\"hidden\" />";
 										$i = $i + 1;
 									}
 									
@@ -75,10 +140,10 @@
 									 * Die nächsten Angaben dienen der Weiterleitung und differenzierung der Eingaben auf den weiteren
 									 * verarbeitenden Seiten. Gemeint ist hier der Aufruf des speicherns, welcher in speichern.php landet.
 									 */
-									echo "<input name=\"Seite\" value=\"Oberstufe.php\" type=\"hidden\" />";
-									echo "<input name=\"Kurs\" value=\"".$_GET['Kurs']."\" type=\"hidden\" />";
-									echo "<input name=\"Klasse\" value=\"".$_GET['Klasse']."\" type=\"hidden\" />";
-									echo "<input name=\"Fachlehrer\" value=\"".$_SESSION['user']['username']."\" type=\"hidden\" />";
+									echo "<input name=\"seite\" value=\"Oberstufe.php\" type=\"hidden\" />";
+									echo "<input name=\"kurs\" value=\"".$_GET['kurs']."\" type=\"hidden\" />";
+									echo "<input name=\"klasse\" value=\"".$_GET['klasse']."\" type=\"hidden\" />";
+									echo "<input name=\"fachlehrer\" value=\"".$_SESSION['user']['username']."\" type=\"hidden\" />";
 									echo "</table> <p style=\"width:100%;\"> <input type=\"submit\" value=\"Noten speichern\" style=\"width:100%;\"/></p> </form>";							
 								}	
 								else {
@@ -98,6 +163,7 @@
 					/**
 					 * Das Submenü wird an der rechten Seite angezeigt und stellt die Kursnavigation dar.
 					 */
+                                        require_once './Verbindung.php';
 					$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 					if ($mysqli->getVerbindung()->connect_error) {
 						$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
@@ -105,10 +171,10 @@
 					else {
 						$query = "SELECT Kurs, Klasse FROM noten WHERE Fachlehrer = '".$_SESSION['user']['username']."' AND Klasse = 'Q2' OR Klasse = 'Q1' OR Klasse = 'EFA' OR Klasse = 'EFB' OR Klasse = 'EFC' OR Klasse = 'EFD' OR Klasse = 'EFE' OR Klasse = 'EFF'";
 						$result = $mysqli->getVerbindung()->query($query);
-						while($dataItem = $result->fetch_row())
+						while($dataItem = mysqli_fetch_row($result))
 						{
 							//Die Auswahl der Kurse wird mittlens GET-Variable übergeben
-							echo '<li><a href="Oberstufe.php?klasse='.$dataItem['Klasse'].'&kurs='.$dataItem['Kurs'].'">'.$dataItem['Kurs'].'-'.$dataItem['Klasse'].'</a></li>';
+							echo '<li><a href="Oberstufe.php?klasse='.$dataItem[1].'&kurs='.$dataItem[0].'">'.$dataItem[0].'-'.$dataItem[1].'</a></li>';
 							
 						}
 					}

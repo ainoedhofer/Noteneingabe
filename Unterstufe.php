@@ -55,6 +55,9 @@
 							 * Benutzer relevanten Klassen und Kurse aus der Datenbank geholt.
 							 * Diese werden dann auf der linken Seite angezeigt.
 							 */
+                                                        require_once './Verbindung.php';
+                                                        require_once './Notenoptionen.php';
+                                                         $optionen = new Notenoptionen();
 								if(isset($_GET['klasse']) || isset($_GET['kurs']))
 								{
 									$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
@@ -83,24 +86,93 @@
 									// schaut in der DB nach, ob der Benutzer Klassenlehrer der Klasse ist. Wenn ja, können Fehlstunden eingetragen werden.									
 									if($_SESSION['user']['klassenlehrer'] === $_GET['klasse'])
 									{
-										echo "<table><tr><td width=\"25%\">Vorname</td><td width=\"25%\">Nachname</td><td>Kursart</td><td>NOTE Ges</td><td>Fstd Ges</td><td>Ue. Ges</td></tr>";
+										echo "<table><tr><td width=\"25%\">Vorname</td><td width=\"25%\">Nachname</td><td width=\"20px\" >Kursart</td><td>NOTE Ges</td><td>Fstd Ges</td><td>Ue. Ges</td></tr>";
 										$i = 0;
 										while($item = mysqli_fetch_row($result)) {
-											echo "<tr><td><input name=\"Data[".$i."][Vorname]\" value=\"".$item[2]."\" style=\"width:95%;\" readonly/></td><td><input name=\"Data[".$i."][Nachname]\" value=\"".$item[1]."\" style=\"width:95%;\" readonly/></td><td><input name=\"Data[".$i."][Kursart]\" value=\"".$item[8]."\" style=\"width:70%;\" readonly/></td><td><input name=\"Data[".$i."][NOTEGes]\" value=\"".$item[10]."\" /></td><td><input name=\"Data[".$i."][FstdGes]\" value=\"".$item[18]."\" /></td><td><input name=\"Data[".$i."][Ue.Ges]\" value=\"".$item[19]."\" /></td></tr>";
+											echo "<tr>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Vorname]\" value=\"".$item[2]."\" style=\"width:95%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Nachname]\" value=\"".$item[1]."\" style=\"width:95%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Kursart]\" value=\"".$item[8]."\" style=\"width:70%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][NOTEGes]\" list=\"Data[".$i."][NOTEGes]\" value=\"".$item[10]."\" />"
+                                                                                                        . "<datalist id=\"Data[".$i."][NOTEGes]\">".$optionen->gibOptionenUST().$optionen->gibOptionenSo().""
+                                                                                                        . "</datalist>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][FstdGes]\" value=\"".$item[18]."\" />"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Ue.Ges]\" value=\"".$item[19]."\" />"
+                                                                                                . "</td>"
+                                                                                            . "</tr>";
 											echo "<input name=\"Data[".$i."][GebDatum]\" value=\"".$item[3]."\" type=\"hidden\" />";
 											$i = $i + 1;
 										}
 									}
-									else
+									else if(isset($_GET['kurs']))
 									{
-										echo "<table><tr><td width=\"25%\">Vorname</td><td width=\"25%\">Nachname</td><td>Kursart</td><td>NOTE Ges</td></tr>";
+										echo "<table><tr><td width=\"25%\">Vorname</td><td width=\"25%\">Nachname</td><td width=\"20px\">Kursart</td><td>NOTE Ges</td></tr>";
 										$i = 0;
 										while($item = mysqli_fetch_row($result)) {
-											echo "<tr><td><input name=\"Data[".$i."][Vorname]\" value=\"".$item[2]."\" style=\"width:95%;\" readonly/></td><td><input name=\"Data[".$i."][Nachname]\" value=\"".$item[1]."\" style=\"width:95%;\" readonly/></td><td><input name=\"Data[".$i."][Kursart]\" value=\"".$item[8]."\" style=\"width:70%;\" readonly/></td><td><input name=\"Data[".$i."][NOTEGes]\" value=\"".$item[10]."\" /></td></tr>";
+											echo "<tr>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Vorname]\" value=\"".$item[2]."\" style=\"width:95%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Nachname]\" value=\"".$item[1]."\" style=\"width:95%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Kursart]\" value=\"".$item[8]."\" style=\"width:70%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][NOTEGes]\" list=\"Data[".$i."][NOTEGes]\" value=\"".$item[10]."\" />"
+                                                                                                        . "<datalist id=\"Data[".$i."][NOTEGes]\">".$optionen->gibOptionenUST().$optionen->gibOptionenSo().""
+                                                                                                        . "</datalist>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][FstdGes]\" value=\"".$item[18]."\" />"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Ue.Ges]\" value=\"".$item[19]."\" />"
+                                                                                                . "</td>"
+                                                                                            . "</tr>";
 											echo "<input name=\"Data[".$i."][GebDatum]\" value=\"".$item[3]."\" type=\"hidden\" />";
 											$i = $i + 1;
 										}
 									}
+                                                                        else 
+                                                                        {
+                                                                            echo "<table><tr><td width=\"25%\">Vorname</td><td width=\"25%\">Nachname</td><td width=\"20px\">Kursart</td><td>NOTE Ges</td></tr>";
+										$i = 0;
+										while($item = mysqli_fetch_row($result)) {
+											echo  "<tr>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Vorname]\" value=\"".$item[2]."\" style=\"width:95%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Nachname]\" value=\"".$item[1]."\" style=\"width:95%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][Kursart]\" value=\"".$item[8]."\" style=\"width:70%;\" readonly/>"
+                                                                                                . "</td>"
+                                                                                                . "<td>"
+                                                                                                    . "<input name=\"Data[".$i."][NOTEGes]\" list=\"Data[".$i."][NOTEGes]\" value=\"".$item[10]."\" />"
+                                                                                                        . "<datalist id=\"Data[".$i."][NOTEGes]\">".$optionen->gibOptionenUST().$optionen->gibOptionenSo().""
+                                                                                                        . "</datalist>"
+                                                                                                . "</td>"
+                                                                                            . "</tr>";
+											echo "<input name=\"Data[".$i."][GebDatum]\" value=\"".$item[3]."\" type=\"hidden\" />";
+											$i = $i + 1;
+										}
+                                                                            
+                                                                            
+                                                                        }
 									
 									/** 
 									 * Die nächsten Angaben dienen der Weiterleitung und differenzierung der Eingaben auf den weiteren
@@ -110,13 +182,14 @@
 									if(isset($_GET['kurs'])){echo "<input name=\"kurs\" value=\"".$_GET['kurs']."\" type=\"hidden\" />";}
 									if(isset($_GET['klasse'])){echo "<input name=\"klasse\" value=\"".$_GET['klasse']."\" type=\"hidden\" />";}
 									if(isset($_GET['fach'])){echo "<input name=\"fach\" value=\"".$_GET['fach']."\" type=\"hidden\" />";}
-									echo "<input name=\"Fachlehrer\" value=\"".$_SESSION['user']['username']."\" type=\"hidden\" />";
+									echo "<input name=\"fachlehrer\" value=\"".$_SESSION['user']['username']."\" type=\"hidden\" />";
 									echo "</table> <p style=\"width:100%;\"> <input type=\"submit\" value=\"Noten speichern\" style=\"width:100%;\"/></p> </form>";							
+                                                                        $mysqli->getVerbindung()->close();
 								}	
 								else {
 									echo "<p>Bitte einen Kurs oder eine Klasse auf der rechten Seite auswählen!</p>";
 								}
-								$mysqli->getVerbindung()->close();
+
 							?>			
 						</div>
 				</div>
@@ -131,6 +204,7 @@
 					/**
 					 * Das Submenü wird an der rechten Seite angezeigt und stellt die Klassen- und Kursnavigation dar.
 					 */
+                                        require_once './Verbindung.php';
 					$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 					if ($mysqli->getVerbindung()->connect_error) {
 						$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;

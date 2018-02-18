@@ -21,7 +21,8 @@ if (isset($_SESSION['login'])) {
 					$mysqli->getVerbindung()->real_escape_string($_POST['f']['username'])
 				);
 				$result = $mysqli->getVerbindung()->query($query);
-				if ($row = $result->getVerbindung()->fetch_array(MYSQLI_ASSOC)) {
+				if ($result != NULL) {
+                                        $row = $result->fetch_array(MYSQLI_ASSOC);
 					if ($row['password'] == $_POST['f']['password']) {
 						session_start();
 						if($row['admin'] == 1)
@@ -52,7 +53,7 @@ if (isset($_SESSION['login'])) {
 						$message['error'] = 'Das Kennwort ist nicht korrekt.';
 					}
 				} else {
-					$message['error'] = 'Der Benutzer wurde nicht gefunden.';
+					$message['error'] = 'Der Benutzer wurde nicht gefunden.'.$result->num_rows.'test'.$query;
 				}
 				$mysqli->getVerbindung()->close();
 			}

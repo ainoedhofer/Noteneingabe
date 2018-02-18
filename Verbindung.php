@@ -26,24 +26,17 @@ class Verbindung
 	private $servername = "db720990685.db.1and1.com";
 	private $username = "dbo720990685";
 	private $password = "D6.snh84imG!";
-	private $dbname = "dbo720990685";
+	private $dbname = "db720990685";
 	private $conn = null;
 
 	public function __construct()
 	{
-            try 
-            {
-                $this->$conn = new mysqli($this->$servername, $this->$username, $this->$password, $this->$dbname);
-            } 
-            catch (PDOException $e) {
-                echo "Fehler!: " . $e->getMessage() . "<br/>";
-                die();
-            }
+            $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
 	}
 
 	public function getVerbindung()
 	{
-		return $this->$conn;
+		return $this->conn;
 	}
 }
 ?>
