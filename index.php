@@ -45,7 +45,7 @@
 							Auf dieser Seite werden ab sofort zu jeder Konferenz die Noten eingegeben. Melden Sie sich mit ihrem Account und 
 							ihrem Passwort in der Anmeldemaske unter dem Reiter "Anmeldung" an. Geben Sie anschließend im Reiter Oberstufe und/oder
 							im Reiter Unterstufe ihre Noten ein. Die Navigation zwischen den Klassen gelingt über das rechte Anzeigefenster. Bei
-							Fragen kann vielleicht der Reiter "Hilfe" ein erste Lösungsansätze bieten.
+							Fragen kann vielleicht der Reiter "Hilfe" erste Lösungsansätze bieten.
 						</p>
 						</div>
 				</div>
@@ -56,7 +56,39 @@
 					<h1>Statistik</h1>
 				</div>
 				<ul class="submenu">
-					<li><a href="#">Anzahl bereits eingegebener Noten: <?php 
+                                    <?php 
+                                    if (isset($_SESSION['login'])) {
+                                        echo "<li><a href=\"#\"><b>bereits eingegebene Noten:</b>"; 
+                                            
+						$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
+						if ($mysqli->getVerbindung()->connect_error) {
+							$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
+						} 
+						else {
+							$query = "SELECT SUM(erg.anzahl_leere_felder) FROM (SELECT t.ID, t.Fachlehrer, t.kl1+t.kl2+t.klges+t.somi1+t.somi2+t.somiges anzahl_leere_felder FROM (SELECT ID, Fachlehrer , CASE WHEN `KL1.Q` IS NULL THEN 0 ELSE 1 END kl1 , CASE WHEN `KL2.Q` IS NULL THEN 0 ELSE 1 END kl2 , CASE WHEN `KLGes` IS NULL THEN 0 ELSE 1 END klges , CASE WHEN `SOMI1.Q` IS NULL THEN 0 ELSE 1 END somi1 , CASE WHEN `SOMI2.Q` IS NULL THEN 0 ELSE 1 END somi2 , CASE WHEN `SOMIGes` IS NULL THEN 0 ELSE 1 END somiges FROM noten ) t WHERE Fachlehrer='".$_SESSION['user']['username']."') erg";
+							$result = $mysqli->getVerbindung()->query($query);
+						}
+						$res = mysqli_fetch_row($result);
+						echo " <b>".$res[0]."</b>";
+                                          
+					echo "</a></li>";
+                                        echo "<li><a href=\"#\"><b>noch fehlende Noten:</b>"; 
+                                            
+						$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
+						if ($mysqli->getVerbindung()->connect_error) {
+							$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
+						} 
+						else {
+							$query = "SELECT SUM(erg.anzahl_leere_felder) FROM (SELECT t.ID, t.Fachlehrer, t.kl1+t.kl2+t.klges+t.somi1+t.somi2+t.somiges anzahl_leere_felder FROM (SELECT ID, Fachlehrer , CASE WHEN `KL1.Q` IS NULL THEN 1 ELSE 0 END kl1 , CASE WHEN `KL2.Q` IS NULL THEN 1 ELSE 0 END kl2 , CASE WHEN `KLGes` IS NULL THEN 1 ELSE 0 END klges , CASE WHEN `SOMI1.Q` IS NULL THEN 1 ELSE 0 END somi1 , CASE WHEN `SOMI2.Q` IS NULL THEN 1 ELSE 0 END somi2 , CASE WHEN `SOMIGes` IS NULL THEN 1 ELSE 0 END somiges FROM noten ) t WHERE Fachlehrer='".$_SESSION['user']['username']."') erg";
+							$result = $mysqli->getVerbindung()->query($query);
+						}
+						$res = mysqli_fetch_row($result);
+						echo " <b>".$res[0]."</b>";
+                                          
+					echo "</a></li>";
+                                                  }
+					?>
+					<li><a href="#">insgesamt eingegebene Noten: <?php 
                                         
 						$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 						if ($mysqli->getVerbindung()->connect_error) {
@@ -70,7 +102,7 @@
 						echo $res[0];
 					?>
 					</a></li>
-					<li><a href="#">Bereits angemeldete Lehrer: <?php 
+					<li><a href="#">bereits angemeldete Lehrer: <?php 
 						$mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 						if ($mysqli->getVerbindung()->connect_error) {
 							$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;

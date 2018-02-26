@@ -58,6 +58,7 @@ if (isset($_SESSION['login'])) {
 				$mysqli->getVerbindung()->close();
 			}
 		}
+                //header('Location: http://' . $_SERVER['HTTP_HOST'] . '/Eingabeseite/index.php');
 	} else {
 		$message['notice'] = 'Geben Sie Ihre Zugangsdaten ein um sich anzumelden.<br />';
 	}

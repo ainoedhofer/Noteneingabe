@@ -316,6 +316,7 @@ Left Column sytles start
 }
 .left-col-content p {
         font-weight: bold;
+        line-height: 1.5em;
 }
 
 .left-col-content table, th

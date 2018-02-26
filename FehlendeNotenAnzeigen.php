@@ -7,6 +7,7 @@ if ($mysqli->getVerbindung()->connect_error) {
 	$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
 } 
 else {
-	
+	$query = "SELECT * FROM noten WHERE ";
+	$result = $mysqli->getVerbindung()->query($query);
 }
 ?>

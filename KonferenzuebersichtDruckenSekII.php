@@ -2,6 +2,7 @@
 require_once './auth.php';
 require_once './Verbindung.php';
 
+$html = "";
 $mysqli = new Verbindung(); // Eine neue Datenbankverbindung aufbauen
 if ($mysqli->getVerbindung()->connect_error) {
 	$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->getVerbindung()->connect_error;
@@ -39,9 +40,13 @@ SUM(`Fstd1.Q`),
 	 * */
 	$query = "SELECT * FROM noten";
 	$result = $mysqli->getVerbindung()->query($query);
+        
+        /**
+         * Hier werden die Daten in eine passende html Sturktur gebracht.
+         */
 }
 
-$html = "<p>test</p><p>test2</p><p>Hallo!</p>";
+
 
 // TCPDF Library laden
 require_once('tcpdf/tcpdf.php');

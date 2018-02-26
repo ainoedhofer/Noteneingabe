@@ -34,14 +34,27 @@
 					<td>Mit dieser Option werden die Leistungsdaten eingespielt</td>
 					<td><a href="LeistungsdatenEinspielen.php"><button>Leistungsdaten einspielen</button></a></td>
 				</tr>
+                                <tr>
+					<td>Mit dieser Option werden die Leistungsdaten exportiert</td>
+					<td><a href="LeistungsdatenExportieren.php"><button>Leistungsdaten exportieren</button></a></td>
+				</tr>
 				<tr>
-					<td>Mit dieser Option wird die Konferenzübersicht erstellt</td>
-					<td><a href="KonferenzueberichtDrucken.php"><button>Konferenzübericht erstellen</button></a></td>
+					<td>Mit dieser Option wird die Konferenzübersicht SekI erstellt</td>
+					<td><a href="KonferenzuebersichtDruckenSekI.php"><button>Konferenzübericht SekI erstellen</button></a></td>
+				</tr>
+                                <tr>
+					<td>Mit dieser Option wird die Konferenzübersicht SekII erstellt</td>
+					<td><a href="KonferenzuebersichtDruckenSekII.php"><button>Konferenzübericht SekII erstellen</button></a></td>
 				</tr>
 				<tr>
 					<td>Mit dieser Option werden alle noch fehlenden Noten angezeigt</td>
 					<td><a href="FehlendeNotenAnzeigen.php"><button>Fehlende Noten anzeigen</button></a></td>
 				</tr>
+                                <tr>
+					<td>Mit dieser Option werden die Leistungsdaten gelöscht</td>
+                                        <td><a href="LeistungsdatenLoeschen.php"><button style="color: red">Leistungsdaten löschen</button></a></td>
+				</tr>
+                                
 		</table>
 	</div>
 	<div class="right-column">
